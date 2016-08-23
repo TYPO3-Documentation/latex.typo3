@@ -159,14 +159,12 @@
 % Override the includegraphics definition
 % to include higher resolution images
 \renewcommand\includegraphics[2][\@empty]{%
-  \ifx#1\@empty%
-    \setbox\image@box=\hbox{\py@Oldincludegraphics{#2}}%
-    \image@width\wd\image@box%
-    \ifdim .5\image@width>\linewidth%
-      \setbox\image@box=\hbox{\py@Oldincludegraphics[width=\linewidth]{#2}}%
-      \box\image@box%
+  \ifx\@empty #1% attention, #1 could be bb.., bad if first after \ifx
+    \setbox\spx@image@box=\hbox{\py@Oldincludegraphics{#2}}%
+    \ifdim .5\wd\spx@image@box>\linewidth%
+      \py@Oldincludegraphics[width=\linewidth]{#2}%
     \else%
-      \py@Oldincludegraphics[width=.5\image@width]{#2}%
+      \py@Oldincludegraphics[width=.5\wd\spx@image@box]{#2}%
     \fi%
   \else%
     \py@Oldincludegraphics[#1]{#2}%
