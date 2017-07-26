@@ -1,4 +1,5 @@
 #!/bin/bash
+
 # Copyright (C) InnoviData GmbH <http://www.innovidata.com>, 2011.
 # Author: Holger Widmann <holger.widmann@innovidata.com>
 # Version: 1.2.20110610
@@ -50,9 +51,9 @@ INSTALL=1
 
 if [ $INSTALL -eq 1 ]; then
 	TEXMF=$(kpsewhich -expand-var \$TEXMFLOCAL)
-	SUDO_CP="sudo cp"
-	SUDO_MKDIR="sudo mkdir"
-	SUDO_RM="sudo rm"
+	SUDO_CP=" cp"
+	SUDO_MKDIR=" mkdir"
+	SUDO_RM=" rm"
 else
 	TEXMF="./texmf"
 	SUDO_CP="cp"
@@ -246,9 +247,9 @@ rm -rf $TEMPDIR
 
 if [ $INSTALL -eq 1 ]; then
 	echo "*** Updating TeX filename database."
-	sudo texhash ${TEXFM}
+	 texhash ${TEXFM}
 	echo "*** Registering font mapping."
-	sudo updmap-sys --enable Map=${FONTNAME}.map
+	 updmap-sys --enable Map=${FONTNAME}.map
 fi
 echo "*** Finished. The truetype font \"${FONTNAME}\" is now available as \"${FONTFAMILY}\" in LaTeX."
 
