@@ -97,23 +97,19 @@
 %  1) use the same design;
 %  2) possibly not change the position of the Sphinx properties table.
 \renewcommand{\maketitle}{%
+  \let\spx@tempa\relax
+  \ifHy@pageanchor\def\spx@tempa{\Hy@pageanchortrue}\fi
+  \hypersetup{pageanchor=false}% avoid duplicate destination warnings
   \begin{titlepage}%
     \let\footnotesize\small
     \let\footnoterule\relax
     \rule{\textwidth}{1pt}%
-    \ifsphinxpdfoutput
-      \begingroup
-      % These \defs are required to deal with multi-line authors; it
-      % changes \\ to ', ' (comma-space), making it pass muster for
-      % generating document info in the PDF file.
-      \def\\{, }
-      \def\and{and }
-      \pdfinfo{
-        /Author (\@author)
-        /Title (\@title)
-      }
+    \par
+      \begingroup % for PDF information dictionary
+        \def\endgraf{ }\def\and{\& }%
+        \pdfstringdefDisableCommands{\def\\{, }}% overwrite hyperref setup
+        \hypersetup{pdfauthor={\@author}, pdftitle={\@title}}%
       \endgroup
-    \fi
     \begin{flushright}%
       \sphinxlogo%
       {\rm\Huge\py@HeaderFamily \@title \par}%
