@@ -154,6 +154,7 @@
 
 % Override the includegraphics definition
 % to include higher resolution images
+\let\py@Oldincludegraphics\includegraphics
 \renewcommand\includegraphics[2][\@empty]{%
   \ifx\@empty #1% attention, #1 could be bb.., bad if first after \ifx
     \setbox\spx@image@box=\hbox{\py@Oldincludegraphics{#2}}%
